@@ -11,6 +11,9 @@ class CharacteristicFromExcel:
             raise ValueError("excel is None")
 
         self.max_m = [1 for i in range(17)]
+        self.min_m = [0.7, 0.75, 0.6, 0.4, 0.75, 0.3, 0.1, 0.7, 0.2, 0.37, 0.46, 0.67, 0.2, 0.1, 0.3, 0.69, 0.53]
+        self.min_m[2] = 0.4
+        self.max_m[0] = 2
         self.res = {}
         self.init_chars = {}
         self.characteristics_labels = [col_name.replace('\n', '') for col_name in kwargs["excel"].columns[1:]]
@@ -71,11 +74,11 @@ class CharacteristicFromExcel:
                 list(map(lambda x: x(t), res_d_fak))))
 
     def init_par(self, init_par):
-        self.func_m['f4'] = lambda t: f4(t, init_par)
-        self.func_m['f10'] = lambda t: f10(t, init_par)
-        self.func_m['f37'] = lambda t: f37(t, init_par)
-        self.func_m['f78'] = lambda t: f78(t, init_par)
-        self.func_m['f88'] = lambda t: f88(t, init_par)
+        self.func_m['f' + str(init_par['-f0v-'])] = lambda t: f0(t, init_par)
+        self.func_m['f' + str(init_par['-f1v-'])] = lambda t: f1(t, init_par)
+        self.func_m['f' + str(init_par['-f2v-'])] = lambda t: f2(t, init_par)
+        self.func_m['f' + str(init_par['-f3v-'])] = lambda t: f3(t, init_par)
+        self.func_m['f' + str(init_par['-f4v-'])] = lambda t: f4(t, init_par)
 
     def calculate(self, init_params):
 
@@ -119,51 +122,60 @@ class CharacteristicFromExcel:
                 break
             res_index = i
         stats = [i[res_index] for i in self.res.values()]
-        make_radar_chart('T=' + str(t), stats, labels)
+        make_radar_chart('T=' + str(t), stats, labels, min_val=self.min_m)
 
 
-
-
-def make_radar_chart(name, stats, attribute_labels, plot_markers=[0, 0.2, 0.4, 0.6, 0.8, 1],
+def make_radar_chart(name, stats, attribute_labels, plot_markers=[0, 0.2, 0.4, 0.6, 0.8, 1], min_val=[],
                      plot_str_markers=["0", "0.2", "0.4", "0.6", "0.8", "1"]):
     labels = np.array(attribute_labels)
 
     angles = np.linspace(0, 2 * np.pi, len(labels), endpoint=False)
     stats = np.concatenate((stats, [stats[0]]))
     angles = np.concatenate((angles, [angles[0]]))
-
-    fig = plt.figure(figsize=(8, 8))
+    # max_st = int(max(stats))
+    # if max_st > 1:
+    #     plot_markers = [i for i in range(0, max_st, max_st / 5)]
+    fig = plt.figure(figsize=(13, 8))
     ax = fig.add_subplot(111, polar=True)
     ax.plot(angles, stats, 'o-', linewidth=2)
     ax.fill(angles, stats, alpha=0.25)
+    legend_labels = ['Критерии на текущий момент времени']
+
+    if min_val != []:
+        min_stats = np.concatenate((min_val, [min_val[0]]))
+        legend_labels.append('Минимальные значения')
+        ax.plot(angles, min_stats, linewidth=2)
+        ax.fill(angles, min_stats, alpha=0.25)
+
     ax.set_thetagrids(angles[:-1] * 180 / np.pi, labels)
     plt.yticks(plot_markers)
     ax.set_title(name)
     ax.grid(True)
-    plt.tight_layout
+    plt.legend(legend_labels, bbox_to_anchor=(0, 0))
+    # fig.tight_layout()
     fig.savefig("diag.png")
 
     return plt.show()
 
 
+def f0(t, k):
+    return float(k['-f0-a-']) * np.array(t) ** 3 + float(k['-f0-c-'])
+
+
+def f1(t, k):
+    return float(k['-f1-a-']) * t + float(k['-f1-c-'])
+
+
+def f2(t, k):
+    return float(k['-f2-a-']) * t + float(k['-f2-c-'])
+
+
+def f3(t, k):
+    return float(k['-f3-a-']) * t ** 2 + float(k['-f3-b-']) * t + float(k['-f3-c-'])
+
+
 def f4(t, k):
-    return float(k['-f4-a-']) * np.array(t) ** 3 + float(k['-f4-c-'])
-
-
-def f10(t, k):
-    return float(k['-f10-a-']) * t + float(k['-f10-c-'])
-
-
-def f37(t, k):
-    return float(k['-f37-a-']) * t + float(k['-f37-c-'])
-
-
-def f78(t, k):
-    return float(k['-f78-a-']) * t ** 2 + float(k['-f78-b-']) * t + float(k['-f78-c-'])
-
-
-def f88(t, k):
-    return float(k['-f88-a-']) * t ** 2 + float(k['-f88-b-']) * t + float(k['-f88-c-'])
+    return float(k['-f4-a-']) * t ** 2 + float(k['-f4-b-']) * t + float(k['-f4-c-'])
 
 
 def fak1(t):

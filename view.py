@@ -3,6 +3,7 @@ import re
 import service as s
 from PIL import Image
 import io
+import random
 
 sg.theme('Reddit')  # Add a touch of color
 # All the stuff inside your window.
@@ -13,73 +14,84 @@ input_size = (4, 1)
 left_column = [
     [sg.Text('Начальные значения')],
     [sg.HorizontalSeparator()],
-    [sg.Text('Качество', size=text_size), sg.Input('0.0', size=input_size, key='-m1-', enable_events=True)],
-    [sg.Text('Практичность', size=text_size), sg.Input('0.0', size=input_size, key='-m2-', enable_events=True)],
-    [sg.Text('Сопровождаемость', size=text_size), sg.Input('0.0', size=input_size, key='-m3-', enable_events=True)],
+    [sg.Text('Качество', size=text_size), sg.Input("%.2f" % random.random(), size=input_size, key='-m1-', enable_events=True)],
+    [sg.Text('Практичность', size=text_size), sg.Input("%.2f" % random.random(), size=input_size, key='-m2-', enable_events=True)],
+    [sg.Text('Сопровождаемость', size=text_size), sg.Input("%.2f" % random.random(), size=input_size, key='-m3-', enable_events=True)],
     [sg.Text('Эргономичность \nпроектирования', size=double_text_size),
-     sg.Input('0.0', size=input_size, key='-m4-', enable_events=True)],
-    [sg.Text('Тестируемость', size=text_size), sg.Input('0.0', size=input_size, key='-m5-', enable_events=True)],
-    [sg.Text('Понятность', size=text_size), sg.Input('0.0', size=input_size, key='-m6-', enable_events=True)],
-    [sg.Text('Модифицируемость', size=text_size), sg.Input('0.0', size=input_size, key='-m7-', enable_events=True)],
+     sg.Input("%.2f" % random.random(), size=input_size, key='-m4-', enable_events=True)],
+    [sg.Text('Тестируемость', size=text_size), sg.Input("%.2f" % random.random(), size=input_size, key='-m5-', enable_events=True)],
+    [sg.Text('Понятность', size=text_size), sg.Input("%.2f" % random.random(), size=input_size, key='-m6-', enable_events=True)],
+    [sg.Text('Модифицируемость', size=text_size), sg.Input("%.2f" % random.random(), size=input_size, key='-m7-', enable_events=True)],
     [sg.Text('Ошибкоустойчивость /\nЦелостность', size=double_text_size),
-     sg.Input('0.0', size=input_size, key='-m8-', enable_events=True)],
+     sg.Input("%.2f" % random.random(), size=input_size, key='-m8-', enable_events=True)],
     [sg.Text('Последовательность \nпроектирования', size=double_text_size),
-     sg.Input('0.0', size=input_size, key='-m9-', enable_events=True)],
-    [sg.Text('Отслеживаемость', size=text_size), sg.Input('0.0', size=input_size, key='-m10-', enable_events=True)],
+     sg.Input("%.2f" % random.random(), size=input_size, key='-m9-', enable_events=True)],
+    [sg.Text('Отслеживаемость', size=text_size), sg.Input("%.2f" % random.random(), size=input_size, key='-m10-', enable_events=True)],
     # [sg.Text('Эффективность \nустройства', size=double_text_size), sg.Input(size=input_size)],
-    [sg.Text('Доступность', size=text_size), sg.Input('0.0', size=input_size, key='-m11-', enable_events=True)],
-    [sg.Text('Коммуникативность', size=text_size), sg.Input('0.0', size=input_size, key='-m12-', enable_events=True)],
-    [sg.Text('Информативность', size=text_size), sg.Input('0.0', size=input_size, key='-m13-', enable_events=True)],
-    [sg.Text('Структурированность', size=text_size), sg.Input('0.0', size=input_size, key='-m14-', enable_events=True)],
-    [sg.Text('Краткость', size=text_size), sg.Input('0.0', size=input_size, key='-m15-', enable_events=True)],
-    [sg.Text('Удобочитаемость', size=text_size), sg.Input('0.0', size=input_size, key='-m16-', enable_events=True)],
-    [sg.Text('Дополняемость', size=text_size), sg.Input('0.0', size=input_size, key='-m17-', enable_events=True)],
+    [sg.Text('Доступность', size=text_size), sg.Input("%.2f" % random.random(), size=input_size, key='-m11-', enable_events=True)],
+    [sg.Text('Коммуникативность', size=text_size), sg.Input("%.2f" % random.random(), size=input_size, key='-m12-', enable_events=True)],
+    [sg.Text('Информативность', size=text_size), sg.Input("%.2f" % random.random(), size=input_size, key='-m13-', enable_events=True)],
+    [sg.Text('Структурированность', size=text_size), sg.Input("%.2f" % random.random(), size=input_size, key='-m14-', enable_events=True)],
+    [sg.Text('Краткость', size=text_size), sg.Input("%.2f" % random.random(), size=input_size, key='-m15-', enable_events=True)],
+    [sg.Text('Удобочитаемость', size=text_size), sg.Input("%.2f" % random.random(), size=input_size, key='-m16-', enable_events=True)],
+    [sg.Text('Дополняемость', size=text_size), sg.Input("%.2f" % random.random(), size=input_size, key='-m17-', enable_events=True)],
 ]
 
 right_column = [
     [sg.Text('Уравнения')],
 
-    [sg.Text('F4 =', size=input_size),
-     sg.Input('0.0', size=input_size, key='-f4-a-', enable_events=True),
+    [sg.Text('F', pad=(0, 0)),
+     sg.Combo(values=[i for i in range (1, 122)], default_value=4, key='-f0v-'),
+     sg.Text('= '),
+     sg.Input("%.2f" % random.random(), size=input_size, key='-f0-a-', enable_events=True),
      sg.Text('* x^3 +', pad=(0, 0)),
-     sg.Input('0.0', size=input_size, key='-f4-c-', enable_events=True)
+     sg.Input("%.2f" % random.random(), size=input_size, key='-f0-c-', enable_events=True)
      ],
 
-    [sg.Text('F10 =', size=input_size),
-     sg.Input('0.0', size=input_size, key='-f10-a-', enable_events=True),
+    [sg.Text('F', pad=(0, 0)),
+     sg.Combo(values=[i for i in range (1, 122)], default_value=10, key='-f1v-'),
+     sg.Text('= '),
+     sg.Input("%.2f" % random.random(), size=input_size, key='-f1-a-', enable_events=True),
      sg.Text('* x +', pad=(0, 0)),
-     sg.Input('0.0', size=input_size, key='-f10-c-', enable_events=True)
+     sg.Input("%.2f" % random.random(), size=input_size, key='-f1-c-', enable_events=True)
      ],
 
-    [sg.Text('F37 =', size=input_size),
-     sg.Input('0.0', size=input_size, key='-f37-a-', enable_events=True),
+    [sg.Text('F', pad=(0, 0)),
+     sg.Combo(values=[i for i in range (1, 122)], default_value=37, key='-f2v-'),
+     sg.Text('= '),
+     sg.Input("%.2f" % random.random(), size=input_size, key='-f2-a-', enable_events=True),
      sg.Text('* x +', pad=(0, 0)),
-     sg.Input('0.0',size=input_size, key='-f37-c-', enable_events=True)
+     sg.Input("%.2f" % random.random(), size=input_size, key='-f2-c-', enable_events=True)
      ],
 
-    [sg.Text('F78 =', size=input_size),
-     sg.Input('0.0', size=input_size, key='-f78-a-', enable_events=True),
+    [sg.Text('F', pad=(0, 0)),
+     sg.Combo(values=[i for i in range (1, 122)], default_value=78, key='-f3v-'),
+     sg.Text('= '),
+     sg.Input("%.2f" % random.random(), size=input_size, key='-f3-a-', enable_events=True),
      sg.Text('* x^2 +', pad=(0, 0)),
-     sg.Input('0.0', size=input_size, key='-f78-b-', enable_events=True),
+     sg.Input("%.2f" % random.random(), size=input_size, key='-f3-b-', enable_events=True),
      sg.Text('* x +', pad=(0, 0)),
-     sg.Input('0.0', size=input_size, key='-f78-c-', enable_events=True)
+     sg.Input("%.2f" % random.random(), size=input_size, key='-f3-c-', enable_events=True)
      ],
 
-    [sg.Text('F88 =', size=input_size),
-     sg.Input('0.0', size=input_size, key='-f88-a-', enable_events=True),
+    [sg.Text('F', pad=(0, 0)),
+     sg.Combo(values=[i for i in range (1, 122)], default_value=88, key='-f4v-'),
+     sg.Text('= '),
+     sg.Input("%.2f" % random.random(), size=input_size, key='-f4-a-', enable_events=True),
      sg.Text('* x^2 +', pad=(0, 0)),
-     sg.Input('0.0', size=input_size, key='-f88-b-', enable_events=True),
+     sg.Input("%.2f" % random.random(), size=input_size, key='-f4-b-', enable_events=True),
      sg.Text('* x +', pad=(0, 0)),
-     sg.Input('0.0', size=input_size, key='-f88-c-', enable_events=True)
+     sg.Input("%.2f" % random.random(), size=input_size, key='-f4-c-', enable_events=True)
      ],
 
     [sg.HorizontalSeparator()],
     [sg.Text('Управлние')],
     [sg.HorizontalSeparator()],
-    [sg.Text('Статус', size=text_size), sg.InputText('пусто', size=input_size, disabled=True)],
+    [sg.Text('Статус', size=text_size), sg.InputText('пусто', size=(10, 1), disabled=True, key='-status-')],
     [sg.Button('Вычислить', size=text_size, key='-start-calc-')],
     [sg.Button('График', size=text_size, key='-get-func-')],
-    [sg.Button('Диаграмма', size=text_size, key='-get_diag-'), sg.Input('0.0', size=input_size, key='-diag-time-', enable_events=True)],
+    [sg.Button('Диаграмма', size=text_size, key='-get_diag-'),
+     sg.Input('0.0', size=input_size, key='-diag-time-', enable_events=True)],
     [sg.Button('Возмущения', size=text_size, key='-start-faks-')],
 
 ]
@@ -88,15 +100,11 @@ main_layout = [
     [sg.Column(left_column), sg.VerticalSeparator(), sg.Column(right_column)]
 ]
 
-
-
-
-
 number_keys = ['-m' + str(i) + '-' for i in range(1, 18)]
-number_keys += ['-f4-a-', '-f4-c-', '-f10-a-', '-f10-c-', '-f37-a-', '-f37-c-', '-f78-a-', '-f78-b-', '-f78-c-',
-                '-f88-a-', '-f88-b-', '-f88-c-', '-diag-time-']
+number_keys += ['-f0-a-', '-f0-c-', '-f1-a-', '-f1-c-', '-f2-a-', '-f2-c-', '-f3-a-', '-f3-b-', '-f3-c-',
+                '-f4-a-', '-f4-b-', '-f4-c-', '-diag-time-']
 
-number_input_format = r'^[-+]?[0-9]*[.,]?[0-9]{,2}$'
+number_input_format = r'^[-+]?[0-9]*[.]?[0-9]{,2}$'
 
 
 def check_number_fields(event, values):
@@ -110,7 +118,7 @@ def check_number_fields(event, values):
 
 
 # Create the Window
-window = sg.Window('Window Title', main_layout, margins=(0, 0))
+window = sg.Window('Модель Боема', main_layout, margins=(0, 0))
 # Event Loop to process "events" and get the "values" of the inputs
 # while True:
 fak_active = False
@@ -131,7 +139,12 @@ while True:
 
     if event == '-start-calc-':
         s.chars.init_par(values)
-        res = s.chars.calculate(values)
+
+        try:
+            res = s.chars.calculate(values)
+            window['-status-'].update('готово')
+        except BaseException:
+            window['-status-'].update('нет решений')
 
     if event == '-get-func-':
         if res is not None:
@@ -151,7 +164,7 @@ while True:
             [sg.Image(key='-Diag-', data=bio.getvalue())],
             [sg.Button('Закрыть', key='Exit')],
         ]
-        win_diag = sg.Window("Result", diag_layout)
+        win_diag = sg.Window("Диаграмма", diag_layout)
         while True:
             event_diag, values_diag = win_diag.read()
             if event_diag in (sg.WIN_CLOSED, 'Exit'):
@@ -169,14 +182,13 @@ while True:
             [sg.Image(key='-Funcs-', data=bio.getvalue())],
             [sg.Button('Закрыть', key='Exit')],
         ]
-        win_funcs = sg.Window("Result", funcs_layout)
+        win_funcs = sg.Window("График", funcs_layout)
         while True:
             event_funcs, values_funcs = win_funcs.read()
             if event_funcs in (sg.WIN_CLOSED, 'Exit'):
                 func_active = False
                 win_funcs.close()
                 break
-
 
     if fak_active:
         s.get_faks_image()
@@ -188,7 +200,7 @@ while True:
             [sg.Image(key='-Faks-', data=bio.getvalue())],
             [sg.Button('Закрыть', key='Exit')],
         ]
-        win_fak = sg.Window("Result", fak_layout)
+        win_fak = sg.Window("Возмущения", fak_layout)
         while True:
             event_fak, values_fak = win_fak.read()
             if event_fak in (sg.WIN_CLOSED, 'Exit'):
@@ -198,6 +210,5 @@ while True:
 
     if event in (sg.WIN_CLOSED, 'Exit'):
         break
-
 
 window.close()
