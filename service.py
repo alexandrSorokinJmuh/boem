@@ -159,23 +159,23 @@ def make_radar_chart(name, stats, attribute_labels, plot_markers=[0, 0.2, 0.4, 0
 
 
 def f0(t, k):
-    return float(k['-f0-a-']) * np.array(t) ** 3 + float(k['-f0-c-'])
+    return float(k['-f0-a-']) * t ** 3 + float(k['-f0-b-']) * t ** 2 + float(k['-f0-c-']) * t + float(k['-f0-d-'])
 
 
 def f1(t, k):
-    return float(k['-f1-a-']) * t + float(k['-f1-c-'])
+    return float(k['-f1-a-']) * t ** 3 + float(k['-f1-b-']) * t ** 2 + float(k['-f1-c-']) * t + float(k['-f1-d-'])
 
 
 def f2(t, k):
-    return float(k['-f2-a-']) * t + float(k['-f2-c-'])
+    return float(k['-f2-a-']) * t ** 3 + float(k['-f2-b-']) * t ** 2 + float(k['-f2-c-']) * t + float(k['-f2-d-'])
 
 
 def f3(t, k):
-    return float(k['-f3-a-']) * t ** 2 + float(k['-f3-b-']) * t + float(k['-f3-c-'])
+    return float(k['-f3-a-']) * t ** 3 + float(k['-f3-b-']) * t ** 2 + float(k['-f3-c-']) * t + float(k['-f3-d-'])
 
 
 def f4(t, k):
-    return float(k['-f4-a-']) * t ** 2 + float(k['-f4-b-']) * t + float(k['-f4-c-'])
+    return float(k['-f4-a-']) * t ** 3 + float(k['-f4-b-']) * t ** 2 + float(k['-f4-c-']) * t + float(k['-f4-d-'])
 
 
 def fak1(t):

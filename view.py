@@ -41,47 +41,69 @@ right_column = [
     [sg.Text('Уравнения')],
 
     [sg.Text('F', pad=(0, 0)),
-     sg.Combo(values=[i for i in range (1, 122)], default_value=4, key='-f0v-'),
+     sg.Combo(values=[i for i in range (1, 121)], default_value=4, key='-f0v-'),
      sg.Text('= '),
+     sg.Input("%.2f" % random.random(), size=input_size, key='-f0-d-', enable_events=True),
+     sg.Text('* x^0 +', pad=(0, 0)),
+     sg.Input("%.2f" % random.random(), size=input_size, key='-f0-c-', enable_events=True),
+     sg.Text('* x +', pad=(0, 0)),
+     sg.Input("%.2f" % random.random(), size=input_size, key='-f0-b-', enable_events=True),
+     sg.Text('* x^2 +', pad=(0, 0)),
      sg.Input("%.2f" % random.random(), size=input_size, key='-f0-a-', enable_events=True),
-     sg.Text('* x^3 +', pad=(0, 0)),
-     sg.Input("%.2f" % random.random(), size=input_size, key='-f0-c-', enable_events=True)
+     sg.Text('* x^3', pad=(0, 0))
+
      ],
 
     [sg.Text('F', pad=(0, 0)),
-     sg.Combo(values=[i for i in range (1, 122)], default_value=10, key='-f1v-'),
+     sg.Combo(values=[i for i in range (1, 121)], default_value=10, key='-f1v-'),
      sg.Text('= '),
+     sg.Input("%.2f" % random.random(), size=input_size, key='-f1-d-', enable_events=True),
+     sg.Text('* x^0 +', pad=(0, 0)),
+     sg.Input("%.2f" % random.random(), size=input_size, key='-f1-c-', enable_events=True),
+     sg.Text('* x +', pad=(0, 0)),
+     sg.Input("%.2f" % random.random(), size=input_size, key='-f1-b-', enable_events=True),
+     sg.Text('* x^2 +', pad=(0, 0)),
      sg.Input("%.2f" % random.random(), size=input_size, key='-f1-a-', enable_events=True),
-     sg.Text('* x +', pad=(0, 0)),
-     sg.Input("%.2f" % random.random(), size=input_size, key='-f1-c-', enable_events=True)
+     sg.Text('* x^3', pad=(0, 0))
      ],
 
     [sg.Text('F', pad=(0, 0)),
-     sg.Combo(values=[i for i in range (1, 122)], default_value=37, key='-f2v-'),
+     sg.Combo(values=[i for i in range (1, 121)], default_value=37, key='-f2v-'),
      sg.Text('= '),
+     sg.Input("%.2f" % random.random(), size=input_size, key='-f2-d-', enable_events=True),
+     sg.Text('* x^0 +', pad=(0, 0)),
+     sg.Input("%.2f" % random.random(), size=input_size, key='-f2-c-', enable_events=True),
+     sg.Text('* x +', pad=(0, 0)),
+     sg.Input("%.2f" % random.random(), size=input_size, key='-f2-b-', enable_events=True),
+     sg.Text('* x^2 +', pad=(0, 0)),
      sg.Input("%.2f" % random.random(), size=input_size, key='-f2-a-', enable_events=True),
-     sg.Text('* x +', pad=(0, 0)),
-     sg.Input("%.2f" % random.random(), size=input_size, key='-f2-c-', enable_events=True)
+     sg.Text('* x^3', pad=(0, 0))
      ],
 
     [sg.Text('F', pad=(0, 0)),
-     sg.Combo(values=[i for i in range (1, 122)], default_value=78, key='-f3v-'),
+     sg.Combo(values=[i for i in range (1, 121)], default_value=78, key='-f3v-'),
      sg.Text('= '),
-     sg.Input("%.2f" % random.random(), size=input_size, key='-f3-a-', enable_events=True),
-     sg.Text('* x^2 +', pad=(0, 0)),
+     sg.Input("%.2f" % random.random(), size=input_size, key='-f3-d-', enable_events=True),
+     sg.Text('* x^0 +', pad=(0, 0)),
+     sg.Input("%.2f" % random.random(), size=input_size, key='-f3-c-', enable_events=True),
+     sg.Text('* x +', pad=(0, 0)),
      sg.Input("%.2f" % random.random(), size=input_size, key='-f3-b-', enable_events=True),
-     sg.Text('* x +', pad=(0, 0)),
-     sg.Input("%.2f" % random.random(), size=input_size, key='-f3-c-', enable_events=True)
+     sg.Text('* x^2 +', pad=(0, 0)),
+     sg.Input("%.2f" % random.random(), size=input_size, key='-f3-a-', enable_events=True),
+     sg.Text('* x^3', pad=(0, 0))
      ],
 
     [sg.Text('F', pad=(0, 0)),
-     sg.Combo(values=[i for i in range (1, 122)], default_value=88, key='-f4v-'),
+     sg.Combo(values=[i for i in range (1, 121)], default_value=88, key='-f4v-'),
      sg.Text('= '),
-     sg.Input("%.2f" % random.random(), size=input_size, key='-f4-a-', enable_events=True),
-     sg.Text('* x^2 +', pad=(0, 0)),
-     sg.Input("%.2f" % random.random(), size=input_size, key='-f4-b-', enable_events=True),
+     sg.Input("%.2f" % random.random(), size=input_size, key='-f4-d-', enable_events=True),
+     sg.Text('* x^0 +', pad=(0, 0)),
+     sg.Input("%.2f" % random.random(), size=input_size, key='-f4-c-', enable_events=True),
      sg.Text('* x +', pad=(0, 0)),
-     sg.Input("%.2f" % random.random(), size=input_size, key='-f4-c-', enable_events=True)
+     sg.Input("%.2f" % random.random(), size=input_size, key='-f4-b-', enable_events=True),
+     sg.Text('* x^2 +', pad=(0, 0)),
+     sg.Input("%.2f" % random.random(), size=input_size, key='-f4-a-', enable_events=True),
+     sg.Text('* x^3', pad=(0, 0))
      ],
 
     [sg.HorizontalSeparator()],
